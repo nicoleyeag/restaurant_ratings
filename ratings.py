@@ -2,26 +2,49 @@
 
 #create function
 def abc_order_reviews(filename):
+    """Restaurant rating lister. In abc order"""
 #get each line from file
     file = open(filename)
 
-    lines_lst = []
+
+    lines_dict = {}
 
     for lines in file:
-        lines = lines.rstrip().split(":")
-        lines_lst.append(lines)
+        lines = lines.rstrip()
+        name, rating = lines.split(":")
+        lines_dict[name] = rating
 
-        print(f"{lines[0]} is rated at {lines[1]}")
+    file.close()
+
+    for name, rating in sorted(lines_dict.items()):
+        print(f"{name} is rated at {rating}")
+
+# abc_order_reviews("scores.txt")
 
 
-    # print(lines_lst)
 
-        # for line in lines:
-        #     print(line)
+def add_user_ratings(filename):
+    """it prompts the user for a new restaurant and rating"""
 
-#store in dictionary abc order
-#sorted(lines)
-    
+    file = open(filename)
+    lines_dict = {}
 
-# return new dictionary
-abc_order_reviews("scores.txt")
+    name_input = input("Please give us a restaurant name: ").title()
+    rating_input = input("What is your rating for this restaurant?: ")
+
+    lines_dict[name_input] = rating_input
+
+    for lines in file:
+        lines = lines.rstrip()
+        name, rating = lines.split(":")
+        lines_dict[name] = rating
+    print(lines_dict)
+
+    for name, rating in sorted(lines_dict.items()):
+        print(f"{name} is rated at {rating}")
+
+    file.close()
+
+    # return lines_dict
+
+add_user_ratings("scores.txt")
